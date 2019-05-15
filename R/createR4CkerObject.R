@@ -97,7 +97,7 @@ createR4CkerObjectFromFiles <- function(files,bait_chr,bait_coord,bait_name,prim
     if(perc_reads_cis < 40){
       cat(paste(files[i], "has < than 40% (", perc_reads_cis, "%) reads in cis. Does not pass QC.\n"))
     }
-    if(perc_sites_nearbait < 40){
+    if(perc_sites_nearbait < 0){
       cat(paste(files[i], "has < than 40% (", perc_sites_nearbait, "%) coverage near the bait. Does not pass QC.\n"))
     }
   }
