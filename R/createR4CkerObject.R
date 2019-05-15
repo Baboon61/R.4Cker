@@ -179,7 +179,7 @@ createR4CkerObjectFromDFs <- function(dfs,bait_chr,bait_coord,bait_name,primary_
                             perc_sites_nearbait,
                             num_reads_trans,perc_reads_trans,
                             num_sites_trans, perc_sites_trans))
-    if(total_num_reads < 1e6){
+    if(total_num_reads < 1){
       cat(paste(dfs[i], "has < than 1 million reads (", total_num_reads, "). Does not pass QC.\n"))
     }
     if(perc_reads_cis < 40){
