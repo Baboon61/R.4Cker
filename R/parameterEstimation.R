@@ -26,28 +26,16 @@ parameterEstimationCis = function(hmm_input,reps,trstart,respstart, instart,ineq
   #sink(file=f)
   print(mod)
 
-  out <- tryCatch(
-        {
-	    mod_fit <- fit(mod,verbose = FALSE,
+  try{
+        mod_fit <- fit(mod,verbose = FALSE,
 		conrows = conr,
 		conrows.lower = c(rep(0.1,2), rep(-Inf,3)),
 		conrows.upper = c(rep(Inf,2), rep(0,3)),
 		solnpcntrl = list(tol = 1e-4))
-        },
-        error=function(cond) {
-            message(paste("fit function failed:", mod))
-            return(NULL)
-        },
-        warning=function(cond) {
-            message(paste("fit function failed:", mod))
-            return(NULL)
-        },
-        finally={
-            mod_fit <- NULL
-            message("fit OK")
-            print(mod_fit)
-        }
-  )    
+  }catch{
+        mod_fit <- NULL
+        continue;
+  }    
     
   print("mod_fit")
   print(mod_fit)
