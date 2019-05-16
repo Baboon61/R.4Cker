@@ -14,12 +14,10 @@ nearBaitAnalysis <- function(obj, k){
   #build adaptive windows
   window_counts <- buildAdaptiveWindowsCis(obj@data_nearbait, obj@bait_coord,
                                           obj@bait_chr, obj@bait_name, obj@output_dir,k, "nearbait")
-  print(window_counts)
   num_windows <- nrow(window_counts)
   #get count for each sample for each window
   counts_results <- getWindowCounts(obj@data_nearbait, window_counts, num_windows, obj@samples,obj@output_dir, "nearbait")
   #build synthetic samples by shuffling reads
-  print("HELP_near")
   if(length(obj@samples) > 1)
     synth_counts_results <- generateSyntheticSamples(window_counts, num_windows, obj@data_nearbait, "nearbait")
   else
