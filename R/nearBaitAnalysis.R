@@ -22,6 +22,7 @@ nearBaitAnalysis <- function(obj, k){
     synth_counts_results <- generateSyntheticSamples(window_counts, num_windows, obj@data_nearbait, "nearbait")
   else
     synth_counts_results <- counts_results
+  print("COUCOU")
   pars_valid <- FALSE
   ##while loop to change the quantile separation if the parameter estimation fails
   while(!pars_valid & lower > 0.1){
