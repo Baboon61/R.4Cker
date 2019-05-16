@@ -25,7 +25,7 @@ parameterEstimationCis = function(hmm_input,reps,trstart,respstart, instart,ineq
   print("I'M HERE")
   #sink(file=f)
   print(mod)
-
+  mod_fit <- NULL
   try{
         mod_fit <- fit(mod,verbose = FALSE,
 		conrows = conr,
@@ -33,7 +33,6 @@ parameterEstimationCis = function(hmm_input,reps,trstart,respstart, instart,ineq
 		conrows.upper = c(rep(Inf,2), rep(0,3)),
 		solnpcntrl = list(tol = 1e-4))
   }catch{
-        mod_fit <- NULL
         continue;
   }    
     
