@@ -13,11 +13,9 @@ generateSyntheticSamples <- function(window_counts, num_windows, data, region){
     non_overlap_windows <- cbind(rep(window_counts_chr[1,1], nrow(non_overlap_windows)),non_overlap_windows )
     non_overlap_windows_all <- rbind(non_overlap_windows_all, non_overlap_windows)
   }
-  print("2")
   sample_n <- sapply(1:n_art_samples, function(i) sample(1:reps, num_windows, replace = TRUE))
   all_art_samples <- vector("list", n_art_samples)
   window_counts_art <- window_counts[,1:3]
-  print("3")
   for(i in 1:n_art_samples){
     art_sample <- NULL
     for(j in 1:reps){
@@ -32,14 +30,17 @@ generateSyntheticSamples <- function(window_counts, num_windows, data, region){
   }
   print("4")
   colnames(window_counts_art) <- c("chr", "start","end", unlist(lapply(1:n_art_samples, function(i) paste("sample",i, sep = "_"))))
+  print("4.1")
   norm_counts_art <- normalizeCounts(window_counts_art[,-c(1:3)])
+  print("4.2")
   norm_counts_art_log <- log(norm_counts_art+1,10)
+  print("4.3")
   if(region == "cis" | region == "nearbait"){
+    print("4.4")
     dist_log <- log(window_counts[,4]+1,10)
     hmm_input_art <- data.frame(counts = c(norm_counts_art_log), distance = rep(dist_log, n_art_samples), row.names = NULL)
     return(list(hmm_input = hmm_input_art, norm_counts_log=norm_counts_art_log, dist_log = dist_log))
   }
-  print("3")
   if(region == "trans"){
     hmm_input_art <- data.frame(counts = c(norm_counts_art_log), row.names = NULL)
     return(list(hmm_input = hmm_input_art))
