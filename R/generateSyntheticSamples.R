@@ -28,18 +28,17 @@ generateSyntheticSamples <- function(window_counts, num_windows, data, region){
       removePCR(data <- art_sample[art_sample[,1] == as.character(window_counts[i,1]) & art_sample[,2] > window_counts[i,2] & art_sample[,2] < window_counts[i,3],4]))))
     all_art_samples[[i]] <- art_sample
   }
-  print("4")
   colnames(window_counts_art) <- c("chr", "start","end", unlist(lapply(1:n_art_samples, function(i) paste("sample",i, sep = "_"))))
-  print("4.1")
   norm_counts_art <- normalizeCounts(window_counts_art[,-c(1:3)])
-  print("4.2")
   norm_counts_art_log <- log(norm_counts_art+1,10)
-  print("4.3")
   if(region == "cis" | region == "nearbait"){
-    print("4.4")
+    print("1")
     dist_log <- log(window_counts[,4]+1,10)
+    print("2")
     hmm_input_art <- data.frame(counts = c(norm_counts_art_log), distance = rep(dist_log, n_art_samples), row.names = NULL)
+    print("3")
     return(list(hmm_input = hmm_input_art, norm_counts_log=norm_counts_art_log, dist_log = dist_log))
+    print("4")
   }
   if(region == "trans"){
     hmm_input_art <- data.frame(counts = c(norm_counts_art_log), row.names = NULL)
