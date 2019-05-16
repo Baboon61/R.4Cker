@@ -27,7 +27,7 @@ nearBaitAnalysis <- function(obj, k){
   print("Verbose 1")
   ##while loop to change the quantile separation if the parameter estimation fails
   while(!pars_valid & lower > 0.1){
-    print("Verbose 2")
+    print("Verbose 2.0")
     starting_values <- startingValuesCis(window_counts, num_windows, obj@bait_coord,
                                         num_samples,synth_counts_results$norm_counts_log,
                                         synth_counts_results$dist_log,lower, upper)
