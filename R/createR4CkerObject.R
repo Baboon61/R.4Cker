@@ -131,7 +131,7 @@ createR4CkerObjectFromFiles <- function(files,bait_chr,bait_coord,bait_name,prim
   print(data_cis)
   print(data_trans)
   print(obj_4Cker)
-  return(obj_4Cker)
+  #return(obj_4Cker)
 }
 
 createR4CkerObjectFromDFs <- function(dfs,bait_chr,bait_coord,bait_name,primary_enz,samples,conditions,
