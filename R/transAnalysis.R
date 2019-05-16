@@ -12,9 +12,13 @@ transAnalysis <- function(obj, k){
   region = "trans"
   ############
   num_samples <- length(obj@samples)
+  print("coucou1")
   window_counts <- buildAdaptiveWindowsTrans(obj@data_trans, obj@samples, obj@chrs_trans,k)
+  print("coucou2")
   num_windows <- nrow(window_counts)
+  print("coucou3")
   counts_results <- getWindowCounts(obj@data_trans, window_counts, num_windows, obj@samples,obj@output_dir, region)
+  print("coucou4")
   if(length(obj@samples) > 1)
     synth_counts_results <- generateSyntheticSamples(window_counts, num_windows, obj@data_trans, region)
   else
