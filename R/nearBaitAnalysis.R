@@ -31,19 +31,23 @@ nearBaitAnalysis <- function(obj, k){
     starting_values <- startingValuesCis(window_counts, num_windows, obj@bait_coord,
                                         num_samples,synth_counts_results$norm_counts_log,
                                         synth_counts_results$dist_log,lower, upper)
+    print("Verbose 3")
     int_glm <- starting_values$int_glm
     lint_glm <- starting_values$int_glm
     nint_glm <- starting_values$int_glm
-
+    print("Verbose 4")
     par_est_results <- parameterEstimationCis(synth_counts_results$hmm_input,num_samples,
                                               starting_values$trstart,starting_values$respstart,
                                               starting_values$instart, ineqfunCis)
+    print("Verbose 5")
     is_valid <- validateParametersCis(starting_values$int_glm, par_est_results$pars,
                                       synth_counts_results$hmm_input)
+    print("Verbose 6")
     par_est_results$pars <- is_valid$pars
     int_glm$coefficients <- par_est_results$pars[19:20]
     lint_glm$coefficients <- par_est_results$pars[16:17]
     nint_glm$coefficients <- par_est_results$pars[13:14]
+    print("Verbose 7")
     if(all(par_est_results$pars[13:21] == starting_values$respstart) | !is_valid$valid){
       lower <- lower-0.05
       upper <- upper-0.05
