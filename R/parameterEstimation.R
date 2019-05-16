@@ -45,6 +45,7 @@ parameterEstimationCis = function(hmm_input,reps,trstart,respstart, instart,ineq
         finally={
             mod_fit <- NULL
             message("fit OK")
+            print(mod_fit)
         }
   )    
     
