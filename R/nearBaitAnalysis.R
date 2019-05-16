@@ -14,6 +14,7 @@ nearBaitAnalysis <- function(obj, k){
   #build adaptive windows
   window_counts <- buildAdaptiveWindowsCis(obj@data_nearbait, obj@bait_coord,
                                           obj@bait_chr, obj@bait_name, obj@output_dir,k, "nearbait")
+  print(window_counts)
   num_windows <- nrow(window_counts)
   #get count for each sample for each window
   counts_results <- getWindowCounts(obj@data_nearbait, window_counts, num_windows, obj@samples,obj@output_dir, "nearbait")
@@ -24,30 +25,23 @@ nearBaitAnalysis <- function(obj, k){
   else
     synth_counts_results <- counts_results
   pars_valid <- FALSE
-  print("Verbose 1")
   ##while loop to change the quantile separation if the parameter estimation fails
   while(!pars_valid & lower > 0.1){
-    print("Verbose 2.0")
     starting_values <- startingValuesCis(window_counts, num_windows, obj@bait_coord,
                                         num_samples,synth_counts_results$norm_counts_log,
                                         synth_counts_results$dist_log,lower, upper)
-    print("Verbose 3")
     int_glm <- starting_values$int_glm
     lint_glm <- starting_values$int_glm
     nint_glm <- starting_values$int_glm
-    print("Verbose 4")
     par_est_results <- parameterEstimationCis(synth_counts_results$hmm_input,num_samples,
                                               starting_values$trstart,starting_values$respstart,
                                               starting_values$instart, ineqfunCis)
-    print("Verbose 5")
     is_valid <- validateParametersCis(starting_values$int_glm, par_est_results$pars,
                                       synth_counts_results$hmm_input)
-    print("Verbose 6")
     par_est_results$pars <- is_valid$pars
     int_glm$coefficients <- par_est_results$pars[19:20]
     lint_glm$coefficients <- par_est_results$pars[16:17]
     nint_glm$coefficients <- par_est_results$pars[13:14]
-    print("Verbose 7")
     if(all(par_est_results$pars[13:21] == starting_values$respstart) | !is_valid$valid){
       lower <- lower-0.05
       upper <- upper-0.05
