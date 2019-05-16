@@ -127,6 +127,7 @@ createR4CkerObjectFromFiles <- function(files,bait_chr,bait_coord,bait_name,prim
                       replicates = replicates,
                       species = species,
                       output_dir = output_dir)
+  print(obj_4Cker)
   return(obj_4Cker)
 }
 
