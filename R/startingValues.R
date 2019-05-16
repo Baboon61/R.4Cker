@@ -1,5 +1,6 @@
 startingValuesCis <- function(window_counts,num_windows,bait_coord, num_samples, norm_counts_log, dist_log, lower, upper){
   print("Hello")
+  print(num_windows)
   low <- 0.5
   high <- 0.8
   non_int <- data.frame()
