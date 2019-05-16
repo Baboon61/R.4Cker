@@ -20,6 +20,7 @@ transAnalysis <- function(obj, k){
   else
     synth_counts_results <- counts_results
   pars_valid <- FALSE
+  print("coucou")
   ##while loop to change the quantile separation if the parameter estimation fails
   while(!pars_valid & lower > 0.1){
     starting_values <- startingValuesTrans(synth_counts_results$hmm_input, lower, upper)
