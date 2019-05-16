@@ -22,13 +22,18 @@ parameterEstimationCis = function(hmm_input,reps,trstart,respstart, instart,ineq
   conr[4,17] <- 1
   conr[5,20] <- 1
   f=file()
-  sink(file=f)
+  print("I'M HERE")
+  #sink(file=f)
+  print(mod)
+  
   mod_fit <- fit(mod,verbose = FALSE,
                 conrows = conr,
                 conrows.lower = c(rep(0.1,2), rep(-Inf,3)),
                 conrows.upper = c(rep(Inf,2), rep(0,3)),
                 solnpcntrl = list(tol = 1e-4))
-  sink()
+  print("mod_fit")
+  print(mod_fit)
+  #sink()
   close(f)
   pars <- c(unlist(getpars(mod_fit)))
   if(unique(pars[13:21] == respstart) == TRUE)
