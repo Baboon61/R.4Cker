@@ -13,9 +13,11 @@ generateSyntheticSamples <- function(window_counts, num_windows, data, region){
     non_overlap_windows <- cbind(rep(window_counts_chr[1,1], nrow(non_overlap_windows)),non_overlap_windows )
     non_overlap_windows_all <- rbind(non_overlap_windows_all, non_overlap_windows)
   }
+  print("2")
   sample_n <- sapply(1:n_art_samples, function(i) sample(1:reps, num_windows, replace = TRUE))
   all_art_samples <- vector("list", n_art_samples)
   window_counts_art <- window_counts[,1:3]
+  print("3")
   for(i in 1:n_art_samples){
     art_sample <- NULL
     for(j in 1:reps){
@@ -28,6 +30,7 @@ generateSyntheticSamples <- function(window_counts, num_windows, data, region){
       removePCR(data <- art_sample[art_sample[,1] == as.character(window_counts[i,1]) & art_sample[,2] > window_counts[i,2] & art_sample[,2] < window_counts[i,3],4]))))
     all_art_samples[[i]] <- art_sample
   }
+  print("4")
   colnames(window_counts_art) <- c("chr", "start","end", unlist(lapply(1:n_art_samples, function(i) paste("sample",i, sep = "_"))))
   norm_counts_art <- normalizeCounts(window_counts_art[,-c(1:3)])
   norm_counts_art_log <- log(norm_counts_art+1,10)
@@ -36,6 +39,7 @@ generateSyntheticSamples <- function(window_counts, num_windows, data, region){
     hmm_input_art <- data.frame(counts = c(norm_counts_art_log), distance = rep(dist_log, n_art_samples), row.names = NULL)
     return(list(hmm_input = hmm_input_art, norm_counts_log=norm_counts_art_log, dist_log = dist_log))
   }
+  print("3")
   if(region == "trans"){
     hmm_input_art <- data.frame(counts = c(norm_counts_art_log), row.names = NULL)
     return(list(hmm_input = hmm_input_art))
