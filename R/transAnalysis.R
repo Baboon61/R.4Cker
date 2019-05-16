@@ -11,6 +11,7 @@ transAnalysis <- function(obj, k){
   upper <- 0.8
   region = "trans"
   ############
+  print("coucou0")
   num_samples <- length(obj@samples)
   print("coucou1")
   window_counts <- buildAdaptiveWindowsTrans(obj@data_trans, obj@samples, obj@chrs_trans,k)
