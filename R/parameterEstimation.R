@@ -26,16 +26,15 @@ parameterEstimationCis = function(hmm_input,reps,trstart,respstart, instart,ineq
   #sink(file=f)
   print(mod)
   mod_fit <- NULL
-  try{
+
+  try({
         mod_fit <- fit(mod,verbose = FALSE,
 		conrows = conr,
 		conrows.lower = c(rep(0.1,2), rep(-Inf,3)),
 		conrows.upper = c(rep(Inf,2), rep(0,3)),
 		solnpcntrl = list(tol = 1e-4))
-  }catch{
-        continue;
-  }    
-    
+  })
+
   print("mod_fit")
   print(mod_fit)
   #sink()
